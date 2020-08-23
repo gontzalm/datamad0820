@@ -53,7 +53,7 @@ class MyWar(War):
 
         self.add_random(qtty, name=name_pool, hp=hp_pool, str=str_pool)
         if qtty != 1:
-            print(f"{qtty} brave Vikigs have joined the Viking Army.")
+            print(f"{qtty} brave Vikings have joined the Viking Army.")
     
     def battle(self):
         """Function to produce a battle"""
@@ -76,6 +76,8 @@ class MyWar(War):
     def showStatus(self):
         print(f"{self.name.title()}'s Status:".center(80, "-"))
         print(super().showStatus().center(80))
+        print(f"Total Saxons left: {len(self.saxonArmy)}".center(80))
+        print(f"Total Vikings left: {len(self.vikingArmy)}".center(80))
         self.show_army("saxon")
         self.show_army("viking")
 
@@ -144,15 +146,13 @@ class Game():
         self.war.add_random_saxons(self.war.saxons)
         self.war.add_random_vikings(self.war.vikings)
         input(f"\nPress ENTER to start {self.war.name}")
-        self.show_header()
         while True:
             self.show_header()
             if self.war.saxonArmy and self.war.vikingArmy:
-                print(len(self.war.vikingArmy))
-                self.war.showStatus()
                 self.war.battle()
-                input(f"\nPress ENTER to continue {self.war.name}")
-            else:
+            self.war.showStatus()
+            if not self.war.saxonArmy or not self.war.vikingArmy:
                 break
-        self.war.showStatus()
+            else:
+                input(f"\nPress ENTER to continue {self.war.name}")
         input("\nPress ENTER to exit the Game")
