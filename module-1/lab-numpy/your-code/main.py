@@ -32,9 +32,9 @@ print(a.size == b.size)
 #8. Are you able to add a and b? Why or why not?
 
 try:
-        a + b # shapes are not compatible
+    a + b # shapes are not compatible
 except ValueError as e:
-        print(e)
+    print(e)
 
 #9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). Assign the transposed array to varialbe "c".
 
@@ -81,27 +81,27 @@ Note: you don't have to use Numpy in this question.
 """
 
 def classify(pos, properties, ndarray):
-        maximum, minimum, avg = properties
-        i, j, k = pos
-        x = ndarray[i, j, k] 
-        if x == minimum:
-                return 0
-        if x == avg:
-                return 50
-        if x == maximum:
-                return 100
-        if x < avg:
-                return 25
-        if x > avg:
-                return 75
+    maximum, minimum, avg = properties
+    i, j, k = pos
+    x = ndarray[i, j, k] 
+    if x == minimum:
+        return 0
+    if x == avg:
+        return 50
+    if x == maximum:
+        return 100
+    if x < avg:
+        return 25
+    if x > avg:
+        return 75
 
 properties = (d_max, d_min, d_mean)
 
 for i in range(d.shape[0]):
-        for j in range(d.shape[1]):
-                for k in range(d.shape[2]):
-                        pos = (i, j, k)
-                        f[i, j, k] = classify(pos, properties, d)
+    for j in range(d.shape[1]):
+        for k in range(d.shape[2]):
+            pos = (i, j, k)
+            f[i, j, k] = classify(pos, properties, d)
 
 # seguro que hay alguna manera mas facil de hacerlo... f = np.map(classify, d)?
 
@@ -125,24 +125,24 @@ Again, you don't need Numpy in this question.
 f = np.empty_like(d, dtype="object")
 
 def classify_letters(pos, properties, ndarray):
-        maximum, minimum, avg = properties
-        i, j, k = pos
-        x = ndarray[i, j, k] 
-        if x == minimum:
-                return "E"
-        if x == avg:
-                return "C"
-        if x == maximum:
-                return "A"
-        if x < avg:
-                return "D"
-        if x > avg:
-                return "B"
+    maximum, minimum, avg = properties
+    i, j, k = pos
+    x = ndarray[i, j, k] 
+    if x == minimum:
+        return "E"
+    if x == avg:
+        return "C"
+    if x == maximum:
+        return "A"
+    if x < avg:
+        return "D"
+    if x > avg:
+        return "B"
 
 for i in range(d.shape[0]):
-        for j in range(d.shape[1]):
-                for k in range(d.shape[2]):
-                        pos = (i, j, k)
-                        f[i, j, k] = classify_letters(pos, properties, d)
+    for j in range(d.shape[1]):
+        for k in range(d.shape[2]):
+            pos = (i, j, k)
+            f[i, j, k] = classify_letters(pos, properties, d)
 
 print(f)
