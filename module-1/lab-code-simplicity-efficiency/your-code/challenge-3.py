@@ -1,6 +1,5 @@
 """
-You are presented with an integer number larger than 5. Your goal is to identify the longest side
-possible in a right triangle whose sides are not longer than the number you are given.
+You are presented with an integer number larger than 5. Your goal is to identify the longest side possible in a right triangle whose sides are not longer than the number you are given.
 
 For example, if you are given the number 15, there are 3 possibilities to compose right triangles:
 
@@ -11,20 +10,24 @@ For example, if you are given the number 15, there are 3 possibilities to compos
 The following function shows one way to solve the problem but the code is not ideal or efficient.
 Refactor the code based on what you have learned about code simplicity and efficiency.
 """
+from itertools import combinations
 
-def my_function(X):
+def largest_right_side(max_side):
     solutions = []
-    for x in range(5, X):
-        for y in range(4, X):
-            for z in range(3, X):
-                if (x*x==y*y+z*z):
-                  solutions.append([x, y, z])
-    m = 0
-    for solution in solutions:
-        if m < max(solution):
-            m = max(solution)
-    return m
+    for comb in combinations(range(5, max_side), 3):
+        # sort comb in order to extract largest value
+        comb = sorted(list(comb), reverse=True)
+        h, k1, k2 = comb
+        if h**2 == k1**2 + k2**2:
+            solutions.append(h)
+    return max(solutions)
 
-X = input("What is the maximal length of the triangle side? Enter a number: ")
-
-print("The longest side possible is " + str(my_function(int(X))))
+prompt = "What is the maximal length of the triangle side? Enter a number: "
+try:
+    max_side = int(input(prompt))
+    if max_side <= 5:
+        raise Exception("Please enter an integer greater than 5.")
+except Exception as e:
+    print(e)
+else:
+    print(f"The longest side possible is {largest_right_side(max_side)}")
