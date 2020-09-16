@@ -14,6 +14,13 @@ It also counts the number of calculations performed which indicates the efficien
 Try if you can improve the performance of the code.
 """
 
+from itertools import permutations
+from math import sqrt
+
+def fibonacci(n):
+    """Return the nth element in the fibonacci series"""
+    return int(1/sqrt(5)*((1 + sqrt(5)) / 2)**n + 0.5)
+
 class ClimbStairs:
     """
     Class constructor
@@ -27,30 +34,17 @@ class ClimbStairs:
     This function calculates how many solutions are there to reach the top when I am currently at the ith step
     i - the step I am currently at
     """
-    def calc_solutions(self, i):
-        # If the current step is already larger than total steps, there's 0 solution
-        if i > self.total_steps:
-            return 0
-
-        # If the current step equals to the total steps, there is only one solution because I've reached the top
-        if i == self.total_steps:
-            return 1
-
-        # If I am still in the middle of the stair, continue calculating
+    def calc_solutions(self): 
         self.calculation_count += 1
-
-        # Call the current function recursively. 
-        # The number of solutions at the ith step equals to the number of solutions at the (i+1)th step 
-        # plus the number of solutions at the (i+2)th step
-        return(self.calc_solutions(i+1) + self.calc_solutions(i+2))
+        return fibonacci(self.total_steps + 1)
 
     def get_calculation_count(self):
         return self.calculation_count
 
     def solve(self):
-        return self.calc_solutions(0)
+        return self.calc_solutions()
 
-total_steps = input("How many steps in the stair?")
-new_challenge = ClimbStairs(int(total_steps))
-print('Ways to climb to top: ' + str(new_challenge.solve()))
-print('Total calculations performed: ' + str(new_challenge.get_calculation_count()))
+total_steps = int(input("How many steps in the stair? "))
+new_challenge = ClimbStairs(total_steps)
+print(f"Ways to climb to top: {new_challenge.solve()}")
+print(f"Total calculations performed: {new_challenge.get_calculation_count()}")
